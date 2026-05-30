@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PostCapture | Coming Soon</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Manrope:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-fixed": "#141c28",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "on-surface": "#1b1c19",
+                        "surface-container-low": "#f5f3ee",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-highest": "#e4e2dd",
+                        "primary-container": "#ff532d",
+                        "surface": "#fbf9f4",
+                        "secondary-fixed-dim": "#bfc7d7",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#00855d",
+                        "inverse-primary": "#ffb4a3",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#5b403a",
+                        "on-secondary-fixed-variant": "#3f4755",
+                        "tertiary": "#006949",
+                        "error": "#ba1a1a",
+                        "primary": "#ff532d",
+                        "on-tertiary-fixed": "#002114",
+                        "on-secondary-container": "#5b6371",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#eae8e3",
+                        "surface-container": "#f0eee9",
+                        "on-primary-fixed": "#3d0600",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#d8e0f1",
+                        "surface-bright": "#fbf9f4",
+                        "inverse-on-surface": "#f2f1ec",
+                        "tertiary-fixed": "#68fcbf",
+                        "outline-variant": "#e4beb5",
+                        "on-primary-fixed-variant": "#8b1900",
+                        "on-background": "#1b1c19",
+                        "secondary-fixed": "#dbe3f4",
+                        "secondary": "#575f6d",
+                        "tertiary-fixed-dim": "#45dfa4",
+                        "primary-fixed-dim": "#ffb4a3",
+                        "surface-variant": "#e4e2dd",
+                        "surface-dim": "#dbdad5",
+                        "primary-fixed": "#ffdad2",
+                        "on-tertiary-container": "#f5fff7",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#30312e",
+                        "surface-tint": "#ff532d",
+                        "background": "#fbf9f4",
+                        "outline": "#907068"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "container-max": "1280px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Manrope"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-md": ["32px", { lineHeight: "40px", fontWeight: "600" }],
+                        "display-lg": ["72px", { lineHeight: "80px", letterSpacing: "-0.04em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }]
+                    },
+                    animation: {
+                        'float-slow': 'float 6s ease-in-out infinite',
+                        'float-medium': 'float 5s ease-in-out infinite',
+                        'float-fast': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .soft-shadow {
+            box-shadow: 0 10px 40px -10px rgba(87, 95, 109, 0.08);
+        }
+        /* Grid Pattern Background */
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(216, 224, 241, 0.4) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(216, 224, 241, 0.4) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-[#ff532d]/20 selection:text-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-md bg-background/80 transition-all duration-300 border-b border-transparent">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-6 max-w-container-max mx-auto">
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2 group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:rotate-12 transition-transform duration-300">camera</span>
+                PostCapture
+            </a>
+<!-- Navigation Links (Hidden on Mobile) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-body-md text-body-md text-on-background font-medium hover:text-primary transition-colors duration-200" href="#">About</a>
+<a class="font-body-md text-body-md text-on-background font-medium hover:text-primary transition-colors duration-200" href="#">X</a>
+</nav>
+<!-- Trailing Action -->
+<a class="bg-primary hover:bg-[#ff532d]/90 text-white font-label-md text-label-md px-6 py-3 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md active:scale-95 flex items-center gap-2 cursor-pointer" href="#waitlist-form">
+                Join Waitlist
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow pt-[120px] relative bg-grid-pattern">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-12 md:pt-24 pb-24 relative z-10">
+<div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+<!-- Badge -->
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md mb-8 border border-outline-variant/50 soft-shadow animate-fade-in-up">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                    Early Access Coming Soon
+                </div>
+<!-- Headline -->
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-on-background mb-6 leading-tight max-w-3xl animate-fade-in-up" style="animation-delay: 100ms;">
+                    Turn your X posts into <span class="text-primary relative inline-block">Stunning Visuals.
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-40 z-[-1]" preserveaspectratio="none" viewbox="0 0 200 12">
+<path d="M0,10 Q100,-5 200,10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h1>
+<!-- Subheadline -->
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl animate-fade-in-up" style="animation-delay: 200ms;">
+                    Professional social snapshots, coming soon. Join the exclusive waitlist for early access to our high-resolution capture engine.
+                </p>
+<!-- Waitlist Form -->
+<form id="waitlist-form" class="w-full max-w-md mb-16 animate-fade-in-up flex flex-col sm:flex-row gap-3 relative" style="animation-delay: 300ms;">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary">mail</span>
+<input id="email-input" class="w-full pl-12 pr-4 py-4 rounded-lg bg-surface-container-lowest border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/20 font-body-md text-on-background placeholder-secondary transition-all outline-none soft-shadow" placeholder="Enter your email address" required="" type="email" name="email"/>
+</div>
+<div style="position:absolute;left:-9999px" aria-hidden="true">
+<input type="text" name="website" tabindex="-1" autocomplete="off"/>
+</div>
+<button id="submit-btn" class="bg-primary hover:bg-[#ff532d]/90 text-white font-label-md text-label-md px-8 py-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 whitespace-nowrap flex items-center justify-center gap-2" type="submit">
+                        Join the Waitlist
+                    </button>
+</form>
+<div id="form-message" class="w-full max-w-md mb-16 hidden animate-fade-in-up"></div>
+<!-- Feature Badges -->
+<div class="flex flex-wrap justify-center gap-4 animate-fade-in-up" style="animation-delay: 400ms;">
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-lowest border border-surface-container-highest soft-shadow font-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary">high_quality</span>
+                        4K Resolution
+                    </div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-lowest border border-surface-container-highest soft-shadow font-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary">brush</span>
+                        Custom Branding
+                    </div>
+<div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-lowest border border-surface-container-highest soft-shadow font-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary">dashboard_customize</span>
+                        Auto-Layout
+                    </div>
+</div>
+</div>
+</section>
+<!-- Floating Cards Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32 relative hidden md:block">
+<div class="relative h-[500px] w-full max-w-5xl mx-auto flex justify-center items-center mt-[-40px]">
+<!-- Central Focus Card -->
+<div class="absolute z-20 w-[450px] glass-effect rounded-xl soft-shadow p-6 animate-float-slow transform translate-y-4">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-xl">D</div>
+<div>
+<div class="font-label-md text-on-background flex items-center gap-1">Designer <span class="material-symbols-outlined text-[16px] text-blue-500" style="font-variation-settings: 'FILL' 1;">verified</span></div>
+<div class="font-body-md text-sm text-secondary">@uxdesigner • 2h</div>
+</div>
+</div>
+<p class="font-body-md text-on-background mb-4">Just discovered the perfect tool for sharing design updates. Clean layouts, crisp typography, and it actually understands padding. 🎨✨</p>
+<div class="h-32 rounded-lg bg-surface-variant mb-4 overflow-hidden relative">
+<img alt="Abstract modern design composition" class="w-full h-full object-cover" data-alt="A clean, abstract modern design composition featuring soft geometric shapes in light pastel beige and off-white tones. Subtle shadows create depth, emphasizing a minimalist and sophisticated aesthetic. The lighting is soft and diffused, perfectly matching a premium light-mode UI style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLynE0ATbE0jnitIlsuDclarThXobjDIvddwI_GXYqUvuKc9OIwF8InYElY18oWOy1mZxYAEDljW8uiz2-b2N5j9lQjX4_WtC7w3V4VJQlCagS_kEqoF54VvrD-mYQjlXCPRsTJqmWehIDrI9VLYzk527IDeR6vPGaZO5pnCy4IVDM6ZqamZ96Po1Lf4seYlsg4MxiJKlUegIWiWMRuqsbvWK-3D6p5V-kEWnQSLUCN4YMjdjixTIA9mMdGg8yXJ2BWOyfRJMbeMZJ"/>
+</div>
+<div class="flex items-center gap-6 text-secondary">
+<span class="flex items-center gap-1 text-sm"><span class="material-symbols-outlined text-[18px]">chat_bubble</span> 12</span>
+<span class="flex items-center gap-1 text-sm"><span class="material-symbols-outlined text-[18px]">repeat</span> 4</span>
+<span class="flex items-center gap-1 text-sm text-primary"><span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span> 128</span>
+</div>
+</div>
+<!-- Left Card (Video Support) -->
+<div class="absolute z-10 w-[420px] bg-white rounded-xl soft-shadow p-5 left-[5%] top-[5%] -rotate-6 animate-float-medium opacity-90 scale-95 border border-surface-container-highest">
+<div class="flex items-start gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">V</div>
+<div class="flex-grow">
+<div class="font-label-md text-on-background flex items-center gap-1">Video Creator <span class="material-symbols-outlined text-[16px] text-blue-500" style="font-variation-settings: 'FILL' 1;">verified</span></div>
+<div class="font-body-md text-sm text-secondary">@videopro • 5h</div>
+</div>
+</div>
+<p class="font-body-md text-on-background mb-3 text-sm">The video export feature is incredible. Renders perfectly for IG Reels and TikTok! 🎬🔥</p>
+<div class="h-40 rounded-lg bg-surface-variant mb-4 overflow-hidden relative group cursor-pointer">
+<img alt="Video placeholder" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCL_6UZsxblnVkvtsdE3USuk9xCm3hVeUl7tbOYssYG_sr_sRrEHI0cXBDy_yLw_DlpryaBhUaiWd1d41G3PwxYip59WcwR9AsH9Gy8KF5ZgG2Ev07PnMyCNC7n1jY3njrzXu1nHNYwjXfIxAMynw9VwjHVP8FHEy9MAH3IGUp307BKY1MjSS23AM42AXoAT6TpbDimkHJiljq6H_mXoPqi6oS-1zriJJG5P-XdRj5eIlOCDXQOjCL7njUv1O_yW7jvHA-QXPVFoCg"/>
+<!-- Play Button Overlay -->
+<div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+<div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="absolute bottom-0 left-0 w-full h-1 bg-white/30">
+<div class="h-full bg-primary w-1/3"></div>
+</div>
+<div class="absolute bottom-2 right-2 px-2 py-1 bg-black/60 text-white text-xs rounded font-medium">0:15</div>
+</div>
+<div class="flex items-center gap-6 text-secondary">
+<span class="flex items-center gap-1 text-sm"><span class="material-symbols-outlined text-[16px]">chat_bubble</span> 45</span>
+<span class="flex items-center gap-1 text-sm"><span class="material-symbols-outlined text-[16px]">repeat</span> 12</span>
+<span class="flex items-center gap-1 text-sm text-primary"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">favorite</span> 342</span>
+</div>
+</div>
+<!-- Right Card (Blurred/Back) -->
+<div class="absolute z-10 w-[380px] bg-white rounded-xl soft-shadow p-5 right-[10%] bottom-[10%] rotate-3 animate-float-fast opacity-80 blur-[1px] scale-90">
+<div class="flex items-start gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest"></div>
+<div class="flex-grow">
+<div class="h-4 w-24 bg-surface-container-highest rounded mb-2"></div>
+<div class="h-3 w-16 bg-surface-container rounded"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="h-3 w-full bg-surface-container rounded"></div>
+<div class="h-3 w-full bg-surface-container rounded"></div>
+</div>
+<div class="h-24 mt-4 bg-surface-container-highest rounded-lg w-full"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface w-full mt-auto bg-surface-container-low border-t border-surface-container-high">
+<div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto gap-8">
+<!-- Brand Logo -->
+<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity" href="#">
+<span class="material-symbols-outlined">camera</span>
+                PostCapture
+            </a>
+<!-- Links -->
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-secondary hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+<!-- Copyright -->
+<p class="font-label-md text-label-md text-secondary opacity-80">
+                © 2024 PostCapture. All rights reserved.
+            </p>
+</div>
+</footer>
+<style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+    </style>
+<script>
+        document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var email = document.getElementById('email-input').value.trim();
+            var btn = document.getElementById('submit-btn');
+            var msg = document.getElementById('form-message');
+            var form = this;
+
+            if (!email) return;
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Joining...';
+            msg.classList.add('hidden');
+
+            try {
+                var resp = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                var data = await resp.json();
+
+                if (resp.ok) {
+                    msg.className = 'w-full max-w-md mb-16 bg-[#f0fdf4] border border-[#86efac] text-[#166534] rounded-lg p-4 font-body-md animate-fade-in-up';
+                    msg.innerHTML = '<div class="flex items-center gap-2"><span class="material-symbols-outlined">check_circle</span><strong>You\'re in!</strong></div><p class="text-sm mt-1">' + data.message + (data.position ? ' Position #' + data.position : '') + '</p>';
+                    form.reset();
+                    setTimeout(function() { msg.classList.add('hidden'); }, 8000);
+                } else {
+                    msg.className = 'w-full max-w-md mb-16 bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] rounded-lg p-4 font-body-md animate-fade-in-up';
+                    msg.innerHTML = '<div class="flex items-center gap-2"><span class="material-symbols-outlined">error</span><strong>Oops</strong></div><p class="text-sm mt-1">' + (data.detail || 'Something went wrong. Please try again.') + '</p>';
+                }
+            } catch (err) {
+                msg.className = 'w-full max-w-md mb-16 bg-[#fef2f2] border border-[#fecaca] text-[#991b1b] rounded-lg p-4 font-body-md animate-fade-in-up';
+                msg.innerHTML = '<div class="flex items-center gap-2"><span class="material-symbols-outlined">error</span><strong>Connection error</strong></div><p class="text-sm mt-1">Could not reach the server. Please try again later.</p>';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = 'Join the Waitlist';
+            }
+        });
+
+        var headerBtn = document.querySelector('header a[href="#waitlist-form"]');
+        if (headerBtn) {
+            headerBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('waitlist-form').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(function() { document.getElementById('email-input').focus(); }, 500);
+            });
+        }
+    </script>
+</body></html>

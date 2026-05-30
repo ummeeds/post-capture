@@ -1,0 +1,17 @@
+[Unit]
+Description=PostCapture FastAPI Backend
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/postcapture
+EnvironmentFile=/opt/postcapture/.env
+ExecStart=/usr/bin/python3 -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/postcapture-api.log
+StandardError=append:/var/log/postcapture-api.log
+
+[Install]
+WantedBy=multi-user.target
