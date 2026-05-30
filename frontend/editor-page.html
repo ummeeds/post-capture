@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PostCapture — Tweet Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .tweet-preview-shadow {
+            box-shadow: 0 20px 50px rgba(87, 95, 109, 0.15);
+        }
+        body {
+            background-color: #fbf9f4;
+            color: #1b1c19;
+            overflow: hidden;
+        }
+        /* Custom slider thumb styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #ff6b00;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #e4e2dd;
+            border-radius: 3px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff6b00",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#68fcbf",
+                        "secondary-fixed-dim": "#bfc7d7",
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf9f4",
+                        "surface-variant": "#e4e2dd",
+                        "inverse-surface": "#30312e",
+                        "on-surface-variant": "#5b403a",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-tertiary-fixed": "#002114",
+                        "on-primary-fixed": "#3d0600",
+                        "surface-container-high": "#eae8e3",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#d8e0f1",
+                        "on-secondary-container": "#5b6371",
+                        "surface-dim": "#dbdad5",
+                        "tertiary-fixed-dim": "#45dfa4",
+                        "tertiary-container": "#00855d",
+                        "surface": "#fbf9f4",
+                        "primary-fixed-dim": "#ffb380",
+                        "primary-fixed": "#ffd1b3",
+                        "on-primary-fixed-variant": "#8b1900",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fbf9f4",
+                        "on-primary-container": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#f5fff7",
+                        "secondary-fixed": "#dbe3f4",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "surface-container": "#f0eee9",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#b62400",
+                        "on-secondary-fixed-variant": "#3f4755",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#907068",
+                        "on-background": "#1b1c19",
+                        "primary": "#ff6b00",
+                        "secondary": "#575f6d",
+                        "outline-variant": "#e4beb5",
+                        "surface-container-low": "#f5f3ee",
+                        "inverse-primary": "#ffb4a3",
+                        "on-secondary-fixed": "#141c28",
+                        "inverse-on-surface": "#f2f1ec",
+                        "on-surface": "#1b1c19",
+                        "tertiary": "#006949"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "container-max": "1280px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Manrope"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex flex-col h-screen">
+<!-- Header / TopNavBar -->
+<header class="z-50 backdrop-blur-md bg-surface/90 shadow-sm sticky top-0 w-full">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto py-4">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">PostCapture</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Features</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Pricing</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">Showcase</a>
+<a class="text-secondary font-label-md text-label-md hover:text-primary transition-colors" href="#">API</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2 text-secondary font-label-md text-label-md hover:text-primary transition-colors">Login</button>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-lg font-label-md text-label-md shadow-lg hover:opacity-90 transition-transform active:scale-95">Capture Now</button>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 flex overflow-hidden relative">
+<!-- Subtle Background Grid Accent -->
+<div class="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style="background-image: radial-gradient(#ff6b00 1px, transparent 1px); background-size: 32px 32px;"></div>
+<!-- Central Preview Area -->
+<div class="flex-1 flex flex-col items-center justify-center p-gutter relative z-10">
+<div class="relative group transition-all duration-500 ease-out p-16 rounded-[2rem] flex items-center justify-center" id="preview-container" style="background: linear-gradient(135deg, #ffd1b3 0%, #d8e0f1 100%); width: 80%; max-width: 800px; aspect-ratio: 16/9;">
+<!-- Tweet Card -->
+<div class="bg-white rounded-xl p-8 tweet-preview-shadow w-full max-w-[540px] border border-surface-variant/20" id="tweet-card">
+<div class="flex items-center gap-4 mb-6">
+<img alt="User profile" class="w-12 h-12 rounded-full border-2 border-surface-container" data-alt="A professional close-up studio portrait of a friendly smiling male executive in a well-lit modern office environment. The lighting is soft and flattering, highlighting facial features clearly. The aesthetic is warm and premium with soft bokeh in the background, fitting a high-end SaaS application user profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyEw_hITW3vrfFr0ITFMFlM7Y7MN8lSotAX68hB_mHapTRE8TAmNqQKwnkwpf3-rpMFqQ6rUJNKOoMFug4LHqeHHw08rDChhk6eV9fl9RqNOF1oDwOKNhWuVabHKu1UM35Ai6FSP1KYWD2C8c8hIZucy0_8lwfxNoiGZyZur8ZmbbmCNnKi_nmdtILOb1A9axJ6kyof2152NtcaXODqT4E3Vr5T3M5dWZqzvd1qZuigyQC7PRIFux6TxH2eWY1s7SJ1tCiCUHc6R-I"/>
+<div class="flex-1">
+<div class="flex items-center gap-1">
+<span class="font-bold text-on-surface">Alex Rivera</span>
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-secondary text-sm">@arivera_design</span>
+</div>
+<span class="material-symbols-outlined text-secondary">more_horiz</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface mb-6 leading-relaxed">
+                        The future of design isn't just about how it looks, it's about how it makes you feel. 🎨 PostCapture makes turning thoughts into high-fidelity visuals effortless. <span class="text-primary">#DesignSystem #Creative</span>
+</p>
+<div class="flex items-center justify-between text-secondary-container border-t border-surface-variant/30 pt-6">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">chat_bubble</span>
+<span class="text-sm font-label-md">12</span>
+</div>
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-secondary group-hover:text-primary transition-colors">repeat</span>
+<span class="text-sm font-label-md">48</span>
+</div>
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-sm font-label-md">241</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer transition-colors">share</span>
+</div>
+</div>
+<!-- Floating Controls Overlay (Minimalist) -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/80 glass-effect p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">zoom_in</span></button>
+<div class="w-px h-4 bg-surface-variant"></div>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">refresh</span></button>
+<div class="w-px h-4 bg-surface-variant"></div>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">download</span></button>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<span class="text-secondary text-label-md font-label-md bg-surface-container px-3 py-1 rounded-full flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> Draft Autosaved
+                </span>
+</div>
+</div>
+<!-- Precision Sidebar -->
+<aside class="w-[360px] bg-white border-l border-surface-container flex flex-col z-20">
+<div class="p-6 border-b border-surface-container flex items-center justify-between">
+<h2 class="font-headline-md text-[20px] font-bold text-on-surface">Editor Controls</h2>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-on-surface">settings</span>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-10">
+<!-- Theme Selection -->
+<section>
+<label class="block font-label-md text-label-md text-secondary uppercase mb-4">Color Theme</label>
+<div class="grid grid-cols-5 gap-3">
+<button class="w-full aspect-square rounded-lg bg-primary ring-2 ring-primary ring-offset-2 transition-all"></button>
+<button class="w-full aspect-square rounded-lg bg-tertiary hover:scale-105 transition-all"></button>
+<button class="w-full aspect-square rounded-lg bg-secondary hover:scale-105 transition-all"></button>
+<button class="w-full aspect-square rounded-lg bg-[#2D3436] hover:scale-105 transition-all"></button>
+<button class="w-full aspect-square rounded-lg bg-[#6C5CE7] hover:scale-105 transition-all"></button>
+</div>
+</section>
+<!-- Background Presets -->
+<section>
+<label class="block font-label-md text-label-md text-secondary uppercase mb-4">Canvas Background</label>
+<div class="grid grid-cols-2 gap-3">
+<div class="h-16 rounded-xl cursor-pointer border-2 border-primary-container relative overflow-hidden" style="background: linear-gradient(135deg, #ffd1b3 0%, #d8e0f1 100%);">
+<span class="absolute bottom-1 right-2 text-[10px] font-bold text-on-surface/40">GRADIENT</span>
+</div>
+<div class="h-16 rounded-xl cursor-pointer bg-surface-container hover:bg-surface-container-high transition-colors relative overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 8px 8px;"></div>
+<span class="absolute bottom-1 right-2 text-[10px] font-bold text-on-surface/40">DOTTED</span>
+</div>
+<div class="h-16 rounded-xl cursor-pointer bg-inverse-surface relative overflow-hidden">
+<span class="absolute bottom-1 right-2 text-[10px] font-bold text-white/40">DARK</span>
+</div>
+<div class="h-16 rounded-xl cursor-pointer border border-surface-variant flex items-center justify-center group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">add</span>
+</div>
+</div>
+</section>
+<!-- Layout & Spacing -->
+<section class="space-y-6">
+<label class="block font-label-md text-label-md text-secondary uppercase">Dimensions</label>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-body-md font-body-md text-on-surface">Card Padding</span>
+<span class="text-primary font-bold">48px</span>
+</div>
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="20" type="range" value="48"/>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-body-md font-body-md text-on-surface">Shadow Intensity</span>
+<span class="text-primary font-bold">65%</span>
+</div>
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="65"/>
+</div>
+</section>
+<!-- Toggle Options -->
+<section class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">verified</span>
+<span class="font-body-md text-body-md">Show Verified Badge</span>
+</div>
+<div class="w-10 h-6 bg-primary rounded-full relative p-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">bar_chart</span>
+<span class="font-body-md text-body-md">Display Metrics</span>
+</div>
+<div class="w-10 h-6 bg-surface-variant rounded-full relative p-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">public</span>
+<span class="font-body-md text-body-md">Show Response Count</span>
+</div>
+<div class="w-10 h-6 bg-primary rounded-full relative p-1 transition-colors">
+<div class="w-4 h-4 bg-white rounded-full ml-auto"></div>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar Footer Actions -->
+<div class="p-6 bg-surface-container-lowest border-t border-surface-container flex flex-col gap-3">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-secondary text-white rounded-xl font-label-md text-label-md hover:bg-on-surface transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">content_copy</span> Copy to Clipboard
+                </button>
+<button class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white rounded-xl font-headline-md text-[18px] font-bold hover:scale-[1.02] transition-all shadow-md active:scale-95">
+                    Export Image <span class="material-symbols-outlined">trending_flat</span>
+</button>
+</div>
+</aside>
+</main>
+<!-- Success Message (Initial hidden state) -->
+<div class="fixed bottom-10 left-margin-desktop z-[100] transform translate-y-20 opacity-0 transition-all duration-500 bg-on-surface text-white px-6 py-4 rounded-2xl flex items-center gap-4 shadow-2xl" id="toast">
+<div class="bg-primary p-1 rounded-full"><span class="material-symbols-outlined text-sm">check</span></div>
+<p class="font-body-md text-body-md">Image exported successfully to your downloads folder.</p>
+</div>
+<script>
+        // Micro-interactions and effects
+        const exportBtn = document.querySelector('button.bg-primary');
+        const toast = document.getElementById('toast');
+
+        exportBtn.addEventListener('click', () => {
+            // Simulate Export process
+            exportBtn.innerHTML = 'Processing...';
+            setTimeout(() => {
+                exportBtn.innerHTML = 'Export Image <span class="material-symbols-outlined">trending_flat</span>';
+                showToast();
+            }, 1500);
+        });
+
+        function showToast() {
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 4000);
+        }
+
+        // Simple range listener for "Padding"
+        const rangeSlider = document.querySelector('input[type=range]');
+        const previewContainer = document.getElementById('preview-container');
+        
+        rangeSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            previewContainer.style.padding = `${val}px`;
+            // Update the display text next to label
+            e.target.previousElementSibling.querySelector('.text-primary').innerText = `${val}px`;
+        });
+
+        // Toggle logic
+        const toggles = document.querySelectorAll('.w-10.h-6');
+        toggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const dot = toggle.querySelector('div');
+                if(toggle.classList.contains('bg-primary')) {
+                    toggle.classList.replace('bg-primary', 'bg-surface-variant');
+                    dot.classList.replace('ml-auto', 'ml-0');
+                } else {
+                    toggle.classList.replace('bg-surface-variant', 'bg-primary');
+                    dot.classList.add('ml-auto');
+                }
+            });
+        });
+    </script>
+</body></html>

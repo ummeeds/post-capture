@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PostCapture | Transform Tweets into Masterpieces</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff7b00",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#68fcbf",
+                        "secondary-fixed-dim": "#bfc7d7",
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf9f4",
+                        "surface-variant": "#e4e2dd",
+                        "inverse-surface": "#30312e",
+                        "on-surface-variant": "#5b403a",
+                        "surface-container-highest": "#e4e2dd",
+                        "on-tertiary-fixed": "#002114",
+                        "on-primary-fixed": "#4d2200",
+                        "surface-container-high": "#eae8e3",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#d8e0f1",
+                        "on-secondary-container": "#5b6371",
+                        "surface-dim": "#dbdad5",
+                        "tertiary-fixed-dim": "#45dfa4",
+                        "tertiary-container": "#00855d",
+                        "surface": "#fbf9f4",
+                        "primary-fixed-dim": "#ffb493",
+                        "primary-fixed": "#ffdbcb",
+                        "on-primary-fixed-variant": "#753400",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fbf9f4",
+                        "on-primary-container": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#f5fff7",
+                        "secondary-fixed": "#dbe3f4",
+                        "on-tertiary-fixed-variant": "#005137",
+                        "surface-container": "#f0eee9",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#ff6a00",
+                        "on-secondary-fixed-variant": "#3f4755",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#907068",
+                        "on-background": "#1b1c19",
+                        "primary": "#ff6a00",
+                        "secondary": "#575f6d",
+                        "outline-variant": "#e4beb5",
+                        "surface-container-low": "#f5f3ee",
+                        "inverse-primary": "#ffb493",
+                        "on-secondary-fixed": "#141c28",
+                        "inverse-on-surface": "#f2f1ec",
+                        "on-surface": "#1b1c19",
+                        "tertiary": "#006949"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "container-max": "1280px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Manrope"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .tonal-layer-1 {
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px -4px rgba(87, 95, 109, 0.06);
+        }
+        .grid-accent {
+            background-image: radial-gradient(#d8e0f1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(255, 106, 0, 0.15), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(216, 224, 241, 0.3), transparent 40%);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 7s ease-in-out infinite 1.5s;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-surface/90 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto py-4">
+<div class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-surface">
+                PostCapture
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1 hover:text-primary transition-colors" href="#">Features</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#">Pricing</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#">Showcase</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-primary transition-colors" href="#">API</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-5 py-2 text-label-md font-label-md text-secondary hover:text-primary transition-colors scale-95 transition-transform duration-200">Login</button>
+<button class="px-6 py-2.5 bg-primary text-on-primary rounded-lg text-label-md font-label-md hover:opacity-90 transition-all scale-95 transition-transform duration-200 shadow-md">Capture Now</button>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section & URL Input -->
+<section class="relative min-h-[819px] flex flex-col items-center justify-start pt-24 px-margin-mobile md:px-margin-desktop overflow-hidden hero-gradient">
+<div class="grid-accent absolute inset-0 opacity-40 pointer-events-none transition-all duration-1000 ease-out opacity-100 translate-y-0"></div>
+<div class="relative z-10 w-full max-w-3xl text-center space-y-8 transition-all duration-1000 ease-out opacity-100 translate-y-0">
+<h1 class="font-display-lg text-display-lg text-on-surface leading-tight tracking-tight">Turn your X posts into <br/>
+<span class="text-primary">Stunning Visuals</span></h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-xl mx-auto">
+                    The premium standard for capturing social proof. Professional typography, intelligent cropping, and breathable layouts for every capture.
+                </p>
+<!-- URL Submission Form -->
+<div class="mt-12 tonal-layer-1 p-2 rounded-2xl flex flex-col md:flex-row gap-2 border border-outline-variant/30">
+<div class="flex-grow flex items-center px-4 gap-3 bg-surface rounded-xl border border-transparent focus-within:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-50">link</span>
+<input class="w-full py-4 bg-transparent border-none focus:ring-0 text-body-md placeholder:text-outline-variant" placeholder="Paste Twitter / X URL here..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md text-label-md hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-95">
+                        Capture Now
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="flex items-center justify-center gap-6 pt-4 text-outline font-label-md text-label-md">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">check_circle</span> 4K Resolution</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">check_circle</span> Custom Branding</span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">check_circle</span> Auto-Layout</span>
+</div>
+</div>
+<!-- Floating Tweet Cards -->
+<div class="relative z-10 w-full max-w-5xl mx-auto mt-24 flex flex-col md:flex-row items-center justify-center gap-8 lg:gap-16 transition-all duration-1000 ease-out opacity-100 translate-y-0 pb-16">
+<!-- Card 1: Text-only -->
+<div class="w-[280px] md:w-[320px] bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/50 animate-float">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-surface-dim overflow-hidden">
+<img alt="avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqXgFLKduR8rydD_YtPwZ19f0qdAvLOXfXZphoFz3AtQWKx_wU25FLgC6hUC0-pKdFdwS9x1ZuIQF-woMZ4a4ZqBIY2vz55CD2wEVKYXX7sJJvyA9PpHOLgwRrCBzxS9qfGKUhrpQySbu72GRb8Twn61ubGl5znsGp7Slysln9N18Nq5DjaJekztxIbDEtxUkPPjkBELSrNneSJ7tH05ebOpamoVh68vEwtAgj9XruFesCJBVJmGdoJa5twq7jFy3Au17rexpuqQpb"/>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-bold text-sm text-on-surface">Sarah Jenkins</span>
+<span class="material-symbols-outlined text-[14px] text-[#ff532d]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-xs text-secondary">@sarah_design</span>
+</div>
+</div>
+<p class="text-sm text-on-surface leading-relaxed mb-4">The new <span class="text-[#ff532d]">#PostCapture</span> update is insane. Look at how clean these social screenshots are! 🎨✨</p>
+<div class="flex justify-between items-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+<span class="material-symbols-outlined text-[18px]">repeat</span>
+<span class="material-symbols-outlined text-[18px] text-[#ff532d]">favorite</span>
+<span class="material-symbols-outlined text-[18px]">share</span>
+</div>
+</div>
+<!-- Card 2: With Image -->
+<div class="w-[300px] md:w-[340px] bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.05)] border border-white/50 animate-float-delayed">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-surface-dim overflow-hidden">
+<img alt="avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6_UHRmXFDepkvtCD4V7YppgiiPAI36BjXkFvMI9OJvinGIf6mV81vld8ppY_3-g53ub-gnCKpXMo8lxNI1nyYVdvF-a8XeJXHs7eFAvB1aWJ1PbXW0_vinM84N_5AbXcYCFipFyMs0RpeFwGSf3jhCzptN9n3i5KFYy-hgp7Gd3ZowhqHIi7UJhDASEEaPcJmljySZy8QvtsUBzhc6t37cTfqgeyoiHDBRX7Ttw2KFvHJa-_VQYP1M62RB3ZkXkMtn9ssQW816m3x"/>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-bold text-sm text-on-surface">Alex Rivera</span>
+<span class="material-symbols-outlined text-[14px] text-blue-400">verified</span>
+</div>
+<span class="text-xs text-secondary">@arivera_builds</span>
+</div>
+</div>
+<p class="text-sm text-on-surface leading-relaxed mb-3">The visual quality is unmatched. No more blurry crops. 🚀</p>
+<div class="rounded-xl overflow-hidden mb-4 border border-outline-variant/20">
+<img alt="tweet image" class="w-full h-32 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6MskcO6NNonrt3X3vTj2FJfYWsyx5hqIpPxQrrxsVO3VMmJwMD40zd5FV20lXM_3fgFHt7hst8VWXwaK829yGVw0ZsnoyqZp8fFBc7_eSQwuyTD8Ly9TYEGirAUGn1T2EpiR9y70yIG41DYVlkMLhFZyZwr0l8K11CYNNwhlFGI2GV3H_wVfl3eCeXHLSbKfXmnYqe6X7Hrgo-xkxsmBdFBx33p_b51MqPJsxof57ZRhPWxRXtJPNItDdesiU7tfP7Ht3tdiSWezG"/>
+</div>
+<div class="flex justify-between items-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+<span class="material-symbols-outlined text-[18px]">repeat</span>
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+<span class="material-symbols-outlined text-[18px]">share</span>
+</div>
+</div>
+</div></section>
+<!-- High-Precision Previews Section -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 transition-all duration-1000 ease-out opacity-100 translate-y-0">
+<div class="max-w-2xl space-y-4">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">High-Precision Previews</h2>
+<p class="font-body-lg text-body-lg text-secondary">
+                        Don't settle for blurry screenshots. Our engine renders every tweet with vector-perfect clarity, ensuring your content looks premium on any platform.
+                    </p>
+</div>
+<div class="flex gap-4">
+<button class="p-3 rounded-full border border-outline-variant hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined group-active:-translate-x-1 transition-transform">west</span>
+</button>
+<button class="p-3 rounded-full border border-outline-variant hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined group-active:translate-x-1 transition-transform">east</span>
+</button>
+</div>
+</div>
+<!-- Bento Preview Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter transition-all duration-1000 ease-out opacity-100 translate-y-0">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 group relative overflow-hidden rounded-3xl tonal-layer-1 aspect-[16/10] border border-outline-variant/10">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A professional workspace with a high-resolution studio monitor displaying a beautifully formatted social media post. The environment is minimalist and high-end, featuring soft natural sunlight casting gentle shadows on a light oak desk. The color palette is composed of warm beiges, soft whites, and vibrant coral highlights, creating a sophisticated and modern atmosphere for a content creator." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEbfDGJBKFJgFiA0UMFuGB1-vNWXZguKiO0lOdhLqmHmWb7OzKf5W5GR242RcB3hjLo-f5GW37aW9_cri_k9xfo37jwWpgxehFaAtVAtp4JgUWH9sNem0hS-7nnR1ykoOkPgWKmaliR3PXwwmLdNanL2oehj_3uuUtx73_kF3lfAYDW2qODQB0JqHhEvNoMevtlsuR8o6Q_g7NBzrBBuYVt8EywdMCNQuPMLDvIh8hMjB9fWzFKvoBB4C9xuxVUCLR59nAyAKyObu1"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-12">
+<span class="text-white font-headline-md text-headline-md">Dynamic Aspect Ratios</span>
+<p class="text-white/80 font-body-md text-body-md max-w-md">Automatically optimized for Instagram Stories, Twitter, and LinkedIn feeds.</p>
+</div>
+</div>
+<!-- Vertical Detail Card -->
+<div class="md:col-span-4 space-y-gutter">
+<div class="tonal-layer-1 p-8 rounded-3xl border border-outline-variant/10 h-1/2 flex flex-col justify-center gap-4">
+<div class="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">text_fields</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Typography First</h3>
+<p class="font-body-md text-body-md text-secondary">Custom font weights and kerning that makes every word feel intentional and polished.</p>
+</div>
+<div class="tonal-layer-1 p-8 rounded-3xl border border-outline-variant/10 h-1/2 flex flex-col justify-center gap-4 bg-surface-container-low">
+<div class="w-12 h-12 bg-secondary-container rounded-xl flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">palette</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Auto-Themes</h3>
+<p class="font-body-md text-body-md text-secondary">Our AI selects the perfect background gradient to match the media in your tweet.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Call to Action -->
+<section class="py-32 bg-surface-container-high relative overflow-hidden">
+<div class="grid-accent absolute inset-0 opacity-20 transition-all duration-1000 ease-out opacity-100 translate-y-0"></div>
+<div class="relative z-10 max-w-4xl mx-auto px-margin-mobile text-center space-y-8 transition-all duration-1000 ease-out opacity-100 translate-y-0">
+<h2 class="font-display-lg text-display-lg text-on-surface leading-none">Ready to elevate <br/>your feed?</h2>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl mx-auto">
+                    Join thousands of professional writers, creators, and brands who trust PostCapture for their social visual identity.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+<button class="w-full sm:w-auto bg-primary text-on-primary px-10 py-5 rounded-2xl font-headline-md text-label-md shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">Get Started for Free</button>
+<button class="w-full sm:w-auto bg-surface-container-lowest text-on-surface px-10 py-5 rounded-2xl font-headline-md text-label-md border border-outline-variant/30 hover:bg-surface transition-all">View API Documentation</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-highest border-t border-outline-variant/10">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-margin-desktop max-w-container-max mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-surface">PostCapture</div>
+<p class="text-on-surface-variant dark:text-secondary-fixed-dim font-body-md text-body-md">Precision-crafted visual captures for the modern web.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors font-label-md text-label-md" href="#">Terms</a>
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors font-label-md text-label-md" href="#">Privacy</a>
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors font-label-md text-label-md" href="#">Cookies</a>
+<a class="text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary transition-colors font-label-md text-label-md" href="#">Support</a>
+</div>
+<div class="text-on-surface-variant dark:text-secondary-fixed-dim font-label-md text-label-md opacity-80">
+                © 2024 PostCapture. All rights reserved.
+            </div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for the URL input
+        const urlInput = document.querySelector('input[type="text"]');
+        const captureBtn = urlInput.nextElementSibling;
+        
+        urlInput.addEventListener('focus', () => {
+            urlInput.parentElement.parentElement.classList.add('ring-4', 'ring-primary-fixed/30');
+        });
+        
+        urlInput.addEventListener('blur', () => {
+            urlInput.parentElement.parentElement.classList.remove('ring-4', 'ring-primary-fixed/30');
+        });
+
+        // Simple scroll reveal effect
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('opacity-0', 'translate-y-8');
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section > div').forEach(el => {
+            el.classList.add('transition-all', 'duration-1000', 'ease-out');
+            observer.observe(el);
+        });
+    </script>
+</body></html>

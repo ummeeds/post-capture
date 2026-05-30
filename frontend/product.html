@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PostCapture — Product</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Manrope:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; line-height: 1; vertical-align: middle; }
+    .glass-effect { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .tonal-layer-1 { background-color: #ffffff; box-shadow: 0 4px 20px -4px rgba(87, 95, 109, 0.06); }
+    body { background-color: #fbf9f4; color: #1b1c19; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .tweet-preview-shadow { box-shadow: 0 20px 50px rgba(87, 95, 109, 0.15); }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #ff6b00; cursor: pointer; margin-top: -6px; }
+    input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 6px; cursor: pointer; background: #e4e2dd; border-radius: 3px; }
+</style>
+<script id="tailwind-config">
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    "primary-container": "#ff6b00",
+                    "error-container": "#ffdad6",
+                    "background": "#fbf9f4",
+                    "surface-variant": "#e4e2dd",
+                    "on-surface-variant": "#5b403a",
+                    "surface-container-high": "#eae8e3",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#d8e0f1",
+                    "on-secondary-container": "#5b6371",
+                    "surface-dim": "#dbdad5",
+                    "tertiary-container": "#00855d",
+                    "surface": "#fbf9f4",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fbf9f4",
+                    "on-primary-container": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#f0eee9",
+                    "outline": "#907068",
+                    "on-background": "#1b1c19",
+                    "primary": "#ff6b00",
+                    "secondary": "#575f6d",
+                    "outline-variant": "#e4beb5",
+                    "surface-container-low": "#f5f3ee",
+                    "on-surface": "#1b1c19",
+                    "tertiary": "#006949"
+                },
+                spacing: { "margin-desktop": "64px", "container-max": "1280px", "margin-mobile": "20px", "gutter": "24px", "unit": "8px" },
+                fontFamily: { "body-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-md": ["Manrope"] },
+                fontSize: {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                }
+            }
+        }
+    }
+</script>
+</head>
+<body class="flex flex-col h-screen">
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="tonal-layer-1 rounded-2xl p-10 max-w-sm w-full text-center space-y-6">
+        <span class="material-symbols-outlined text-5xl text-primary" style="font-variation-settings:'FILL'1;">lock</span>
+        <h1 class="font-headline-md text-on-surface">Sign In</h1>
+        <p class="text-secondary text-body-md">Access the PostCapture editor</p>
+        <form id="login-form" class="space-y-4 pt-2">
+            <input id="login-email" type="email" required class="w-full px-4 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md placeholder:text-secondary/60" placeholder="Email"/>
+            <input id="login-password" type="password" required class="w-full px-4 py-3.5 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-body-md placeholder:text-secondary/60" placeholder="Password"/>
+            <div id="login-error" class="text-error text-sm hidden"></div>
+            <button id="login-btn" type="submit" class="w-full bg-primary text-on-primary py-3.5 rounded-xl font-label-md text-label-md hover:opacity-90 transition shadow-md active:scale-95">Sign In</button>
+        </form>
+    </div>
+</div>
+
+<!-- APP SCREEN -->
+<div id="app-screen" class="hidden flex flex-col h-screen">
+    <!-- Header -->
+    <header class="z-50 backdrop-blur-md bg-surface/90 shadow-sm sticky top-0 w-full">
+        <div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto py-4">
+            <div class="flex items-center gap-6">
+                <span class="font-headline-md font-bold text-on-surface">PostCapture</span>
+                <nav class="hidden md:flex items-center gap-4">
+                    <a href="/analytics.html" class="text-secondary font-label-md text-label-md hover:text-primary transition-colors">Analytics</a>
+                </nav>
+            </div>
+            <button id="logout-btn" class="flex items-center gap-2 text-secondary font-label-md text-label-md hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-lg">logout</span> Sign Out
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 flex overflow-hidden relative">
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style="background-image: radial-gradient(#ff6b00 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+        <!-- Left Sidebar -->
+        <aside class="w-[360px] bg-white border-r border-surface-container flex flex-col z-20 shrink-0">
+            <div class="p-6 border-b border-surface-container">
+                <h2 class="font-headline-md text-[20px] font-bold text-on-surface">Capture Tweet</h2>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 space-y-8">
+                <!-- URL Input -->
+                <form id="capture-form" class="space-y-4">
+                    <label class="block font-label-md text-label-md text-secondary uppercase mb-1">Tweet URL</label>
+                    <div class="flex gap-2">
+                        <div class="flex-grow flex items-center px-4 bg-surface-container-lowest rounded-xl border border-outline-variant focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                            <span class="material-symbols-outlined text-secondary/50 mr-2">link</span>
+                            <input id="tweet-url" type="url" required class="w-full py-3 bg-transparent border-none focus:ring-0 text-body-md placeholder:text-secondary/50" placeholder="https://x.com/user/status/..."/>
+                        </div>
+                    </div>
+                    <button id="capture-btn" type="submit" class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-md text-label-md hover:opacity-90 transition shadow-sm active:scale-95 disabled:opacity-60">
+                        <span id="capture-btn-text">Capture</span>
+                    </button>
+                </form>
+
+                <div id="capture-error" class="text-error text-sm hidden bg-error-container/30 p-3 rounded-xl"></div>
+
+                <!-- Customization Panel -->
+                <div id="customization-panel" class="hidden space-y-8 border-t border-surface-container pt-6">
+                    <!-- Theme -->
+                    <section>
+                        <label class="block font-label-md text-label-md text-secondary uppercase mb-4">Theme</label>
+                        <div class="flex gap-3">
+                            <button data-theme="dark" class="theme-btn active flex-1 py-3 rounded-xl border-2 font-label-md text-label-md text-secondary transition-all bg-surface-container-low border-surface-variant">Dark</button>
+                            <button data-theme="light" class="theme-btn flex-1 py-3 rounded-xl border-2 font-label-md text-label-md text-secondary transition-all border-surface-variant hover:bg-surface-container-low">Light</button>
+                        </div>
+                    </section>
+
+                    <!-- Background -->
+                    <section>
+                        <label class="block font-label-md text-label-md text-secondary uppercase mb-4">Canvas Background</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button data-bg="#000000" class="bg-btn w-full aspect-square rounded-lg bg-[#000000] ring-2 ring-offset-2 ring-primary transition-all"></button>
+                            <button data-bg="#ffffff" class="bg-btn w-full aspect-square rounded-lg bg-[#ffffff] border border-outline-variant transition-all hover:scale-105"></button>
+                            <button data-bg="transparent" class="bg-btn w-full aspect-square rounded-lg relative overflow-hidden border border-outline-variant transition-all hover:scale-105" style="background: repeating-linear-gradient(45deg, #e4e2dd 25%, transparent 25%, transparent 75%, #e4e2dd 75%, #e4e2dd), repeating-linear-gradient(45deg, #e4e2dd 25%, transparent 25%, transparent 75%, #e4e2dd 75%, #e4e2dd); background-position: 0 0, 4px 4px; background-size: 8px 8px;"></button>
+                            <button data-bg="#1DA1F2" class="bg-btn w-full aspect-square rounded-lg bg-[#1DA1F2] transition-all hover:scale-105"></button>
+                            <button data-bg="#17bf63" class="bg-btn w-full aspect-square rounded-lg bg-[#17bf63] transition-all hover:scale-105"></button>
+                            <button data-bg="#794bc4" class="bg-btn w-full aspect-square rounded-lg bg-[#794bc4] transition-all hover:scale-105"></button>
+                            <button data-bg="#e0245e" class="bg-btn w-full aspect-square rounded-lg bg-[#e0245e] transition-all hover:scale-105"></button>
+                            <button data-bg="linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)" class="bg-btn w-full aspect-square rounded-lg transition-all hover:scale-105" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);"></button>
+                        </div>
+                    </section>
+
+                    <!-- Toggle Options -->
+                    <section class="space-y-3">
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary">bar_chart</span>
+                                <span class="font-body-md text-body-md">Show Metrics</span>
+                            </div>
+                            <div class="w-10 h-6 bg-primary rounded-full relative p-1 transition-colors cursor-pointer toggle active" data-key="show_metrics">
+                                <div class="w-4 h-4 bg-white rounded-full ml-auto transition-all"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary">image</span>
+                                <span class="font-body-md text-body-md">Show Media</span>
+                            </div>
+                            <div class="w-10 h-6 bg-primary rounded-full relative p-1 transition-colors cursor-pointer toggle active" data-key="show_media">
+                                <div class="w-4 h-4 bg-white rounded-full ml-auto transition-all"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary">schedule</span>
+                                <span class="font-body-md text-body-md">Show Timestamp</span>
+                            </div>
+                            <div class="w-10 h-6 bg-surface-variant rounded-full relative p-1 transition-colors cursor-pointer toggle" data-key="show_timestamp">
+                                <div class="w-4 h-4 bg-white rounded-full transition-all"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary">verified</span>
+                                <span class="font-body-md text-body-md">Show Verified Badge</span>
+                            </div>
+                            <div class="w-10 h-6 bg-primary rounded-full relative p-1 transition-colors cursor-pointer toggle active" data-key="show_verified">
+                                <div class="w-4 h-4 bg-white rounded-full ml-auto transition-all"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-secondary">crop_square</span>
+                                <span class="font-body-md text-body-md">Square Avatar</span>
+                            </div>
+                            <div class="w-10 h-6 bg-surface-variant rounded-full relative p-1 transition-colors cursor-pointer toggle" data-key="square_avatar">
+                                <div class="w-4 h-4 bg-white rounded-full transition-all"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Aspect Ratio -->
+                    <section>
+                        <label class="block font-label-md text-label-md text-secondary uppercase mb-3">Aspect Ratio</label>
+                        <select id="opt-aspect" class="w-full px-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary text-body-md">
+                            <option value="auto">Auto</option>
+                            <option value="1:1">1:1 — Square</option>
+                            <option value="4:5">4:5 — Portrait</option>
+                            <option value="3:4">3:4 — Tall</option>
+                            <option value="9:16">9:16 — Story</option>
+                        </select>
+                    </section>
+
+                    <!-- Scale -->
+                    <section>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-label-md text-label-md text-secondary uppercase">Scale</span>
+                            <span class="text-primary font-bold text-sm" id="scale-value">100%</span>
+                        </div>
+                        <input id="opt-scale" type="range" min="50" max="150" value="100" class="w-full"/>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Export Footer -->
+            <div id="export-footer" class="hidden p-6 bg-surface-container-lowest border-t border-surface-container flex flex-col gap-2">
+                <button id="export-png-btn" class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-white rounded-xl font-headline-md text-[16px] font-bold hover:scale-[1.02] transition-all shadow-md active:scale-95">
+                    Export PNG <span class="material-symbols-outlined">trending_flat</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Central Preview Canvas -->
+        <div class="flex-1 flex flex-col items-center justify-center p-gutter relative z-10">
+            <div class="relative group transition-all duration-500 ease-out p-16 rounded-[2rem] flex items-center justify-center" id="preview-container" style="background: #ffd1b3; background-image: linear-gradient(135deg, #ffd1b3 0%, #d8e0f1 100%); width: 90%; max-width: 900px; aspect-ratio: 16/9;">
+                <div id="tweet-preview" class="w-full max-w-[540px]"></div>
+                <div id="empty-state" class="text-center text-secondary">
+                    <span class="material-symbols-outlined text-6xl mb-4 block" style="font-variation-settings:'FILL'1;">image</span>
+                    <p class="font-body-lg text-secondary/70">Paste a tweet URL to capture</p>
+                    <p class="font-body-md text-secondary/50 mt-2">Supports X (Twitter) tweet links</p>
+                </div>
+                <!-- Floating Zoom Controls -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/80 glass-effect p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" id="zoom-controls">
+                    <button class="p-2 hover:bg-surface-container rounded-full transition-colors" onclick="adjustScale(-5)"><span class="material-symbols-outlined">zoom_out</span></button>
+                    <div class="w-px h-4 bg-surface-variant"></div>
+                    <button class="p-2 hover:bg-surface-container rounded-full transition-colors" onclick="adjustScale(5)"><span class="material-symbols-outlined">zoom_in</span></button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+var token = localStorage.getItem('pc_token');
+var currentTweet = null;
+var options = {
+    theme: 'dark', background: '#000000', show_metrics: true, show_media: true,
+    show_timestamp: false, show_verified: true, square_avatar: false,
+    aspect_ratio: 'auto', scale: 1, width: 550
+};
+
+// ========== AUTH ==========
+function checkAuth() {
+    if (!token) { showLogin(); return; }
+    fetch('/api/auth/verify', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+    }).then(function(r) {
+        if (r.ok) { showApp(); } else { localStorage.removeItem('pc_token'); token = null; showLogin(); }
+    }).catch(function() { showLogin(); });
+}
+
+function showLogin() { document.getElementById('login-screen').classList.remove('hidden'); document.getElementById('app-screen').classList.add('hidden'); }
+function showApp() { document.getElementById('login-screen').classList.add('hidden'); document.getElementById('app-screen').classList.remove('hidden'); }
+
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('login-btn'), err = document.getElementById('login-error');
+    btn.disabled = true; btn.textContent = 'Signing in...'; err.classList.add('hidden');
+    try {
+        var resp = await fetch('/api/auth/login', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: document.getElementById('login-email').value, password: document.getElementById('login-password').value })
+        });
+        var data = await resp.json();
+        if (resp.ok) { localStorage.setItem('pc_token', data.token); token = data.token; showApp(); }
+        else { err.textContent = data.detail || 'Invalid credentials'; err.classList.remove('hidden'); }
+    } catch (e) { err.textContent = 'Connection error'; err.classList.remove('hidden'); }
+    finally { btn.disabled = false; btn.textContent = 'Sign In'; }
+});
+
+document.getElementById('logout-btn').addEventListener('click', function() { localStorage.removeItem('pc_token'); token = null; showLogin(); });
+
+// ========== CAPTURE ==========
+document.getElementById('capture-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var url = document.getElementById('tweet-url').value.trim();
+    if (!url) return;
+    var btn = document.getElementById('capture-btn'), btnText = document.getElementById('capture-btn-text');
+    var errDiv = document.getElementById('capture-error');
+    btn.disabled = true; btnText.textContent = 'Capturing...'; errDiv.classList.add('hidden');
+    try {
+        var resp = await fetch('/api/tweet', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: url })
+        });
+        if (!resp.ok) { var d = await resp.json(); throw new Error(d.detail || 'Failed to capture'); }
+        currentTweet = await resp.json();
+        document.getElementById('customization-panel').classList.remove('hidden');
+        document.getElementById('export-footer').classList.remove('hidden');
+        document.getElementById('empty-state').classList.add('hidden');
+        document.getElementById('zoom-controls').classList.remove('opacity-0');
+        document.getElementById('zoom-controls').classList.add('opacity-100');
+        renderPreview();
+    } catch (e) {
+        errDiv.textContent = e.message; errDiv.classList.remove('hidden');
+    } finally { btn.disabled = false; btnText.textContent = 'Capture'; }
+});
+
+// ========== PREVIEW ==========
+function formatNumber(n) {
+    if (!n) return '0';
+    if (n >= 1000000) return (n/1000000).toFixed(1)+'M';
+    if (n >= 1000) return (n/1000).toFixed(1)+'K';
+    return n.toString();
+}
+
+function formatDate(d) {
+    try { return new Date(d).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}); }
+    catch(e) { return d; }
+}
+
+function renderPreview() {
+    var t = currentTweet; if (!t) return;
+    var isDark = options.theme === 'dark';
+    var bg = isDark ? '#000000' : '#ffffff';
+    var text = isDark ? '#e7e9ea' : '#0f1419';
+    var secondary = isDark ? '#71767b' : '#536471';
+    var border = isDark ? '#2f3336' : '#eff3f4';
+
+    var linkified = (t.text||'').replace(/(https?:\/\/\S+)|(@\w+)|(#\w+)/g, function(m) { return '<span style="color:#1d9bf0">'+m+'</span>'; });
+    var avatarRadius = options.square_avatar || (t.user||{}).profile_image_shape==='Square' ? '4px' : '50%';
+    var avatarSrc = ((t.user||{}).avatar_url||'').replace('_normal','_200x200');
+
+    var verifiedHtml = '';
+    if (options.show_verified && (t.user||{}).verified) {
+        var vtype = (t.user||{}).verified_type||'blue';
+        var vcolor = vtype==='gold'?'#F4B400':(vtype==='government'?'#829AAB':'#1d9bf0');
+        verifiedHtml = '<svg viewBox="0 0 512 512" width="18" height="18" style="flex-shrink:0"><path d="M512 268c0 17.9-4.3 34.5-12.9 49.7s-20.1 27.1-34.6 35.4c.4 2.7.6 6.9.6 12.6 0 27.1-9.1 50.1-27.1 69.1-18.1 19.1-39.9 28.6-65.4 28.6-11.4 0-22.3-2.1-32.6-6.3-8 16.4-19.5 29.6-34.6 39.7-15 10.2-31.5 15.2-49.4 15.2-18.3 0-34.9-4.9-49.7-14.9-14.9-9.9-26.3-23.2-34.3-40-10.3 4.2-21.1 6.3-32.6 6.3-25.5 0-47.4-9.5-65.7-28.6-18.3-19-27.4-42.1-27.4-69.1 0-3 .4-7.2 1.1-12.6-14.5-8.4-26-20.2-34.6-35.4-8.5-15.2-12.8-31.8-12.8-49.7 0-19 4.8-36.5 14.3-52.3s22.3-27.5 38.3-35.1c-4.2-11.4-6.3-22.9-6.3-34.3 0-27 9.1-50.1 27.4-69.1s40.2-28.6 65.7-28.6c11.4 0 22.3 2.1 32.6 6.3 8-16.4 19.5-29.6 34.6-39.7 15-10.1 31.5-15.2 49.4-15.2s34.4 5.1 49.4 15.1c15 10.1 26.6 23.3 34.6 39.7 10.3-4.2 21.1-6.3 32.6-6.3 25.5 0 47.3 9.5 65.4 28.6s27.1 42.1 27.1 69.1c0 12.6-1.9 24-5.7 34.3 16 7.6 28.8 19.3 38.3 35.1 9.5 15.9 14.3 33.4 14.3 52.4zm-266.9 77.1l105.7-158.3c2.7-4.2 3.5-8.8 2.6-13.7-1-4.9-3.5-8.8-7.7-11.4-4.2-2.7-8.8-3.6-13.7-2.9-5 .8-9 3.2-12 7.4l-93.1 140-42.9-42.8c-3.8-3.8-8.2-5.6-13.1-5.4-5 .2-9.3 2-13.1 5.4-3.4 3.4-5.1 7.7-5.1 12.9 0 5.1 1.7 9.4 5.1 12.9l58.9 58.9 2.9 2.3c3.4 2.3 6.9 3.4 10.3 3.4 6.7-.1 11.8-2.9 15.2-8.7z" fill="'+vcolor+'"/></svg>';
+    }
+
+    var mediaHtml = '';
+    if (options.show_media && t.media && t.media.length>0) {
+        var cols = t.media.length===1?'1fr':'1fr 1fr';
+        mediaHtml = '<div style="display:grid;grid-template-columns:'+cols+';gap:4px;margin-bottom:12px">';
+        t.media.forEach(function(m) {
+            var isSingle = t.media.length===1;
+            var hasDims = m.width&&m.height;
+            var aspect = isSingle&&hasDims?m.width+'/'+m.height:'1/1';
+            var radius = isSingle?'16px':'12px';
+            var src = m.preview_url||m.url||'';
+            var mediaBg = isDark?'#1a1a1a':'#f0f0f0';
+            if ((m.type==='video'||m.type==='animated_gif')&&m.video_urls&&m.video_urls.length>0) {
+                mediaHtml += '<div style="aspect-ratio:'+aspect+';border-radius:'+radius+';background:'+mediaBg+';display:flex;align-items:center;justify-content:center;border:1px solid '+border+'"><span class="material-symbols-outlined" style="font-size:32px;color:'+secondary+'">play_circle</span></div>';
+            } else {
+                mediaHtml += '<img src="'+src+'" crossorigin="anonymous" style="width:100%;aspect-ratio:'+aspect+';object-fit:cover;border-radius:'+radius+';border:1px solid '+border+';display:block;background:'+mediaBg+'" onerror="this.style.display=\'none\'"/>';
+            }
+        });
+        mediaHtml += '</div>';
+    }
+
+    var timestampHtml = '';
+    if (options.show_timestamp&&t.created_at) {
+        timestampHtml = '<div style="color:'+secondary+';font-size:15px;margin-bottom:4px">'+formatDate(t.created_at)+'</div>';
+    }
+
+    var metricsHtml = '';
+    if (options.show_metrics) {
+        metricsHtml = '<div style="display:flex;gap:24px;padding-top:12px;margin-top:12px;border-top:1px solid '+border+';color:'+secondary+';font-size:14px">'+
+            '<span style="display:flex;align-items:center;gap:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788z"/></svg><span style="font-weight:500;color:'+text+'">'+formatNumber(t.replies)+'</span> Replies</span>'+
+            '<span style="display:flex;align-items:center;gap:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.77 15.67c-.292-.292-.767-.292-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"/></svg><span style="font-weight:500;color:'+text+'">'+formatNumber(t.retweets)+'</span> Reposts</span>'+
+            '<span style="display:flex;align-items:center;gap:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.351 4.647 2.476.818-1.125 2.357-2.476 4.647-2.476 2.878 0 5.403 2.69 5.403 5.754 0 6.378-7.453 13.112-10.05 13.16z"/></svg><span style="font-weight:500;color:'+text+'">'+formatNumber(t.likes)+'</span> Likes</span>'+
+            (t.views!=null?'<span style="display:flex;align-items:center;gap:4px"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8.75 21V3h2v18h-2zM18 21V8.5h2V21h-2zM4 21l.004-10h2L6 21H4zm9.248 0v-7h2v7h-2z"/></svg><span style="font-weight:500;color:'+text+'">'+formatNumber(t.views)+'</span> Views</span>':'')+
+            '</div>';
+    }
+
+    var isGradient = options.background.includes('gradient');
+    var wrapperBg = options.background;
+    var wrapperStyle = isGradient?'background:'+wrapperBg:('background-color:'+wrapperBg);
+    var wrapperPad = wrapperBg==='transparent'?'48px':'48px';
+    var wrapperBd = wrapperBg==='transparent'?'border:1px dashed rgba(0,0,0,0.15)':'';
+    var aspectStyle = '';
+    if (options.aspect_ratio!=='auto') {
+        var ratios={'1:1':'1/1','4:5':'4/5','3:4':'3/4','9:16':'9/16'};
+        var maxWs={'1:1':'600px','4:5':'480px','3:4':'450px','9:16':'340px'};
+        aspectStyle='aspect-ratio:'+ratios[options.aspect_ratio]+';max-width:'+maxWs[options.aspect_ratio];
+    }
+
+    document.getElementById('preview-container').style.background = wrapperBg;
+    document.getElementById('preview-container').style.backgroundImage = isGradient?wrapperBg:'none';
+    if (!isGradient) document.getElementById('preview-container').style.backgroundImage = 'none';
+
+    document.getElementById('tweet-preview').innerHTML =
+        '<div style="max-width:'+(options.width*options.scale)+'px;transform:scale('+options.scale+');transform-origin:top center;margin:0 auto" id="exportable">'+
+        '<div class="bg-white rounded-xl p-8 tweet-preview-shadow border border-surface-variant/20" style="background:'+bg+';color:'+text+';border-color:'+border+';'+aspectStyle+'">'+
+        '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif">'+
+        '<div style="display:flex;gap:12px;align-items:flex-start">'+
+        '<div style="flex-shrink:0"><img src="'+avatarSrc+'" width="48" height="48" style="border-radius:'+avatarRadius+';display:block;width:48px;height:48px"/></div>'+
+        '<div style="flex:1;min-width:0">'+
+        '<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:2px">'+
+        '<span style="font-weight:700;font-size:15px">'+(t.user.name||'')+'</span>'+verifiedHtml+
+        '<span style="color:'+secondary+';font-size:15px">@'+(t.user.screen_name||'')+'</span></div>'+
+        '<div style="white-space:pre-wrap;word-break:break-word;font-size:15px;line-height:1.5;margin-bottom:8px">'+linkified+'</div>'+
+        mediaHtml+timestampHtml+
+        '</div></div>'+metricsHtml+
+        '</div></div></div>';
+}
+
+// ========== OPTIONS ==========
+document.querySelectorAll('.theme-btn').forEach(function(b) {
+    b.addEventListener('click', function() {
+        document.querySelectorAll('.theme-btn').forEach(function(x) { x.classList.remove('active','bg-surface-container-low'); });
+        b.classList.add('active','bg-surface-container-low');
+        options.theme = b.dataset.theme;
+        if (currentTweet) renderPreview();
+    });
+});
+
+document.querySelectorAll('.bg-btn').forEach(function(b) {
+    b.addEventListener('click', function() {
+        document.querySelectorAll('.bg-btn').forEach(function(x) { x.classList.remove('ring-2','ring-offset-2','ring-primary'); });
+        b.classList.add('ring-2','ring-offset-2','ring-primary');
+        options.background = b.dataset.bg;
+        if (currentTweet) renderPreview();
+    });
+});
+
+document.querySelectorAll('.toggle').forEach(function(t) {
+    t.addEventListener('click', function() {
+        var key = this.dataset.key;
+        options[key] = !options[key];
+        if (options[key]) {
+            this.classList.add('bg-primary'); this.classList.remove('bg-surface-variant');
+            this.querySelector('div').classList.add('ml-auto');
+        } else {
+            this.classList.remove('bg-primary'); this.classList.add('bg-surface-variant');
+            this.querySelector('div').classList.remove('ml-auto');
+        }
+        if (currentTweet) renderPreview();
+    });
+});
+
+document.getElementById('opt-aspect').addEventListener('change', function() {
+    options.aspect_ratio = this.value;
+    if (currentTweet) renderPreview();
+});
+
+document.getElementById('opt-scale').addEventListener('input', function() {
+    options.scale = parseInt(this.value) / 100;
+    document.getElementById('scale-value').textContent = this.value + '%';
+    if (currentTweet) renderPreview();
+});
+
+function adjustScale(delta) {
+    var slider = document.getElementById('opt-scale');
+    var newVal = Math.min(150, Math.max(50, parseInt(slider.value)+delta));
+    slider.value = newVal;
+    options.scale = newVal/100;
+    document.getElementById('scale-value').textContent = newVal+'%';
+    if (currentTweet) renderPreview();
+}
+
+// ========== EXPORT ==========
+document.getElementById('export-png-btn').addEventListener('click', async function() {
+    if (!currentTweet) return;
+    var el = document.getElementById('exportable');
+    if (!el) return;
+    this.disabled = true; this.innerHTML = 'Exporting...';
+    try {
+        var canvas = await html2canvas(el, { backgroundColor: null, scale: 2, useCORS: true, allowTaint: true });
+        var link = document.createElement('a');
+        link.download = 'postcapture_'+currentTweet.id+'.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    } catch(e) { alert('Export failed'); }
+    finally { this.disabled = false; this.innerHTML = 'Export PNG <span class="material-symbols-outlined">trending_flat</span>'; }
+});
+
+checkAuth();
+</script>
+</body></html>
