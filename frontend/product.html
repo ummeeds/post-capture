@@ -406,18 +406,18 @@ function renderPreview() {
     var aspectRatios={'1:1':'1/1','4:5':'4/5','3:4':'3/4','9:16':'9/16'};
     var aspectMaxWs={'1:1':'600px','4:5':'480px','3:4':'450px','9:16':'340px'};
 
-    var cardStyle = 'background:'+bg+';color:'+text+';border:1px solid '+border+';border-radius:16px;padding:40px 32px;';
+    var cardStyle = 'background:transparent;color:'+text+';border:none;border-radius:0;padding:'+(isAspect?'0':'0')+';';
     if (isAspect) {
         cardStyle += 'aspect-ratio:'+aspectRatios[options.aspect_ratio]+';max-width:'+aspectMaxWs[options.aspect_ratio]+';';
+        cardStyle += 'display:flex;align-items:center;justify-content:center;';
+        cardStyle += 'padding:0;';
     }
 
     var wrapperPad = wrapperBg==='transparent'?'48px':'48px';
     var wrapperBd = wrapperBg==='transparent'?'border:1px dashed rgba(0,0,0,0.15)':'';
 
-    document.getElementById('tweet-preview').innerHTML =
-        '<div style="max-width:'+(options.width*options.scale)+'px;transform:scale('+options.scale+');transform-origin:center center;margin:0 auto;width:100%" id="exportable">'+
-        '<div class="tweet-preview-shadow" style="'+cardStyle+'">'+
-        '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif">'+
+    var innerContent =
+        '<div style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;width:100%">'+
         '<div style="display:flex;gap:12px;align-items:flex-start">'+
         '<div style="flex-shrink:0"><img src="'+avatarSrc+'" width="48" height="48" style="border-radius:'+avatarRadius+';display:block;width:48px;height:48px"/></div>'+
         '<div style="flex:1;min-width:0">'+
@@ -427,7 +427,19 @@ function renderPreview() {
         '<div style="white-space:pre-wrap;word-break:break-word;font-size:15px;line-height:1.5;margin-bottom:12px">'+linkified+'</div>'+
         mediaHtml+timestampHtml+
         '</div></div>'+metricsHtml+
-        '</div></div></div>';
+        '</div>';
+
+    var exportableStyle = 'transform:scale('+options.scale+');transform-origin:center center;margin:0 auto;width:100%';
+    if (isAspect) {
+        exportableStyle += ';aspect-ratio:'+aspectRatios[options.aspect_ratio]+';max-width:'+aspectMaxWs[options.aspect_ratio]+';';
+        exportableStyle += ';display:flex;align-items:center;justify-content:center;';
+    }
+
+    document.getElementById('tweet-preview').innerHTML =
+        '<div style="'+exportableStyle+'" id="exportable">'+
+        '<div style="background:transparent;color:'+text+';border:none;border-radius:0;padding:40px 32px;width:100%">'+
+        innerContent+
+        '</div></div>';
 }
 
 // ========== OPTIONS ==========
