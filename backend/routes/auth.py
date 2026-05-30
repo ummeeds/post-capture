@@ -26,6 +26,10 @@ class LoginResponse(BaseModel):
     expires_in: int
 
 
+class VerifyRequest(BaseModel):
+    token: str
+
+
 def create_token(email: str) -> str:
     expire = datetime.now(timezone.utc) + timedelta(hours=TOKEN_EXPIRE_HOURS)
     payload = {
@@ -60,6 +64,6 @@ async def login(req: LoginRequest):
 
 
 @router.post("/auth/verify")
-async def verify(token: str):
-    email = verify_token(token)
+async def verify(req: VerifyRequest):
+    email = verify_token(req.token)
     return {"valid": True, "email": email}
