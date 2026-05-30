@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.routes.tweet import router as tweet_router
 from backend.routes.waitlist import router as waitlist_router
+from backend.routes.auth import router as auth_router
+from backend.routes.analytics import router as analytics_router
 
 logging.basicConfig(level=logging.INFO)
 
@@ -23,6 +25,8 @@ app.add_middleware(
 
 app.include_router(tweet_router)
 app.include_router(waitlist_router)
+app.include_router(auth_router)
+app.include_router(analytics_router)
 
 
 @app.get("/health")
